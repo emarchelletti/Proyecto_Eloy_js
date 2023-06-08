@@ -4,10 +4,13 @@ let cantidadPersonas;
 let precioPorPersonaPorDia;
 let precioTotal;
 
+//Declaro la funcion que pide al usuario confirmar si quiere hacer otra reserva
 function obtenerConfirmacion(mensaje) {
-    let respuesta = prompt(mensaje + ' (Ingrese "sí" o "no")');
-    return respuesta.toLowerCase() === 'sí';
-  }
+    let respuesta = prompt(mensaje + ' (Ingrese "si" o "no")');
+    return respuesta.toLowerCase() === 'si';
+}
+
+alert ("Bienvenido al sistema de reservas de " + `"Epecuen Lodge"`)
 
 do {
     let tipoCabanaInput = parseInt(prompt('Ingrese el tipo de cabaña en la que desea hospedarse:\n1. Estandar\n2. Deluxe'));
@@ -15,9 +18,9 @@ do {
     // Verificar el tipo de cabaña ingresado
     if (tipoCabanaInput === 1) {
         tipoCabana = 'Estandar';
-        cantidadPersonas = parseInt(prompt('Ingrese la cantidad de personas que se hospedarán (1 a 4 personas):'));
+        cantidadPersonas = parseInt(prompt('Usted a seleccionado la cabaña "Estandar"\n\nIngrese la cantidad de personas que se hospedarán (1 a 4 personas):'));
         if (cantidadPersonas < 1 || cantidadPersonas > 4) {
-            alert('Cantidad de personas inválida para cabaña Estandar.');
+            alert('Cantidad de personas inválida para cabaña Estandar.\n\nInicie el proceso nuevamente');
             break;
         }
         precioPorPersonaPorDia = 100;
@@ -48,12 +51,21 @@ do {
     // Mostrar el mensaje de confirmación
     let mensaje =
         '¡Su reserva ha sido confirmada!\n' +
-        'Cabaña elegida: ' + tipoCabana + '\n' +
+        'Cabaña seleccionada: ' + tipoCabana + '\n' +
         'Cantidad de personas: ' + cantidadPersonas + '\n' +
         'Cantidad de días: ' + cantidadDias + '\n' +
         'Precio total: $' + precioTotal;
 
     alert(mensaje);
-} while (obtenerConfirmacion('¿Desea realizar otra reserva?'));
+
+} while (obtenerConfirmacion('¿Desea realizar otra reserva?')); 
+//El while se ejecuta mientras la funcion "obtenerConfirmacion" devuelva true, lo que significa que el usuario desea realizar otra reserva. El bucle se detendrá cuando la función devuelva false, indicando que el usuario no desea realizar otra reserva.
+
+
+
+
+
+
+
 
 alert('Muchas gracias por su visita');
