@@ -10,12 +10,22 @@ function obtenerConfirmacion(mensaje) {
     return respuesta.toLowerCase() === 'si';
 }
 
-alert("Bienvenido al sistema de reservas de " + `"Epecuen Lodge"`)
+alert("Bienvenido al sistema de reservas de " + '"Epecuen Lodge"')
 
 do {
-    let tipoCabanaInput = parseInt(prompt('Ingrese el tipo de cabaña en la que desea hospedarse:\n1. Estandar ($100 x persona)\n2. Deluxe ($500 x persona)')); //3
 
-    // Verificar el tipo de cabaña ingresado
+    //let tipoCabanaInput = parseInt(prompt('Ingrese el tipo de cabaña en la que desea hospedarse:\n1. Estandar ($100 x persona)\n2. Deluxe ($500 x persona)')); //3
+
+    /// Verificar el tipo de cabaña ingresado
+    let tipoCabanaInput;
+    while (true) {
+        tipoCabanaInput = parseInt(prompt('Ingrese el tipo de cabaña en la que desea hospedarse:\n1. Estandar ($100 x persona)\n2. Deluxe ($500 x persona)'));
+        if (tipoCabanaInput === 1 || tipoCabanaInput === 2) {
+            break;
+        }
+        alert('Opción inválida. Por favor, ingrese 1 para cabaña Estandar o 2 para cabaña Deluxe.');
+    }
+
     if (tipoCabanaInput === 1) {
         tipoCabana = 'Estandar';
         do {
@@ -35,11 +45,12 @@ do {
             }
         } while (cantidadPersonas < 2 || cantidadPersonas > 8)
         precioPorPersonaPorDia = 500;
-
-    } else {
+    }
+    /*} else {
         alert('Opción inválida. Por favor, recuerde ingresar 1 para cabaña Estandar o 2 para cabaña Deluxe.');
         continue;
-    }
+    }*/
+
 
     // Verificar la cantidad de dias 
     do {
