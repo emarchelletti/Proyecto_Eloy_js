@@ -1,5 +1,5 @@
 //Array de las reservas que se van creando
-const reservas [];
+const reservas = [];
 
 //Objeto reserva
 function reserva(nombre, cabaña, cantidadPersonas, cantidadDias) {
