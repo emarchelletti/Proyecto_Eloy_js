@@ -77,3 +77,5 @@ do {
 //El while se ejecuta mientras la funcion "obtenerConfirmacion" devuelva true, lo que significa que el usuario desea repetir el proceso de reserva. El bucle se detendrá cuando la función devuelva false, indicando que el usuario no desea realizar otra reserva.
 
 alert('Muchas gracias por su visita');
+
+
