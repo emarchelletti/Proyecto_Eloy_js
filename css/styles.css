@@ -1,0 +1,457 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------------Barra de Navegacion------------------------------- */
+.navHeader {
+  background-color: rgba(119, 111, 121, 0.431372549);
+  backdrop-filter: blur(3px) saturate(150%);
+}
+.navHeader .navHeader_Logo {
+  padding: 0;
+  margin: 0;
+  margin-left: 5vw;
+}
+.navHeader .navHeader_Logo .img_Logo {
+  border-radius: 35% 15%;
+  height: 17vh;
+}
+.navHeader .navbar-toggler-color {
+  border-color: aliceblue;
+  border: 5px solid aliceblue;
+}
+.navHeader .navbar-toggler-color:hover {
+  border-color: rgb(132, 52, 190);
+}
+.navHeader li {
+  font-size: 1.4rem;
+  border-right: 2px solid aliceblue;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.navHeader li a {
+  color: aliceblue !important;
+  /*Este !important esta para que no use el color de la clase de bts*/
+  font-weight: 700;
+  position: relative;
+}
+@media screen and (min-width: 991px) {
+  .navHeader li a:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.5s ease-in-out;
+    /* Agrega una transición de 0.5 segundos con un efecto de entrada y salida */
+  }
+  .navHeader li a:hover::after {
+    width: 100%;
+  }
+}
+.navHeader .Link_1 {
+  border-left: 2px solid aliceblue;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+@media screen and (max-width: 991px) {
+  .navHeader .lista_SinBorde li {
+    border: none;
+  }
+}
+.navHeader i {
+  color: white;
+  /* ------------------------Copie el codigo de la animacion de fontawesome y la meti en un hover------------------------------- */
+}
+.navHeader i:hover {
+  -webkit-animation-name: fa-beat;
+  animation-name: fa-beat;
+  -webkit-animation-delay: var(--fa-animation-delay, 0s);
+  animation-delay: var(--fa-animation-delay, 0s);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+  animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+  animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+/* ------------------------Section titulo del header------------------------------- */
+.section_titulo_header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 85vh;
+  font-family: "Caveat";
+}
+.section_titulo_header div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.section_titulo_header div h1 {
+  font-size: 8rem;
+  color: aliceblue;
+  text-align: center;
+  text-shadow: 3px 0px 0px rgb(10, 10, 10), -3px 0px 0px rgb(10, 10, 10), 0px 3px 0px rgb(10, 10, 10), 0px -3px 0px rgb(10, 10, 10);
+}
+.section_titulo_header div p {
+  color: aliceblue;
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 1px 0px 0px rgb(10, 10, 10), -1px 0px 0px rgb(10, 10, 10), 0px 1px 0px rgb(10, 10, 10), 0px -1px 0px rgb(10, 10, 10);
+}
+
+.Header__Img__Index, .Header__Img__Contacto, .Header__Img__Ubicacion, .Header__Img__Pesca, .Header__Img__Lodge {
+  background-image: url(../assets/img/header.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.Header__Img__Lodge {
+  background-image: url(../assets/img/Img_Lodge1.jpg);
+}
+
+.Header__Img__Pesca {
+  background-image: url(../assets/img/header_pesca.jpg);
+}
+
+.Header__Img__Ubicacion {
+  background-image: url(../assets/img/header_ubicacion.jpg);
+}
+
+.Header__Img__Contacto {
+  background-image: url(../assets/img/header_3.jpg);
+}
+
+.main_Index {
+  background-color: beige;
+  font-family: "Lato", sans-serif;
+}
+.main_Index section {
+  background-image: radial-gradient(circle, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f0f0d9, #ececd5, #e7e7d2, #ddddcb, #d2d2c3, #c8c8bc, #bebeb5);
+}
+.main_Index .section_vid {
+  background-image: radial-gradient(circle, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #e6e8d1, #d8dac5, #cacdba, #abafa1, #8e9288, #737670, #595b58);
+}
+.main_Index h2 {
+  text-shadow: 1px 0px 0px white, -1px 0px 0px white, 0px 1px 0px white, 0px -1px 0px white;
+  text-align: center;
+  font-family: "Caveat";
+}
+.main_Index h3 {
+  font-family: "Caveat";
+  text-align: center;
+}
+.main_Index p {
+  font-family: "Lato", sans-serif;
+  font-style: italic;
+  white-space: pre-line;
+}
+.main_Index .div_imagen img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------Pagina "Lodge y Pesca" ------------------------------------ */
+.main_lodge_pesca {
+  background-image: radial-gradient(circle, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f0f0d9, #ececd5, #e7e7d2, #ddddcb, #d2d2c3, #c8c8bc, #bebeb5);
+}
+.main_lodge_pesca h2 {
+  font-family: "Caveat";
+  text-shadow: 1px 0px 0px white, -1px 0px 0px white, 0px 1px 0px white, 0px -1px 0px white;
+}
+.main_lodge_pesca h3 {
+  font-family: "Caveat";
+}
+.main_lodge_pesca p {
+  font-family: "Lato", sans-serif;
+  font-style: italic;
+  white-space: pre-line;
+}
+.main_lodge_pesca .boton_comentarios {
+  border: 1px solid black;
+  color: aliceblue;
+  background-color: black;
+  text-decoration: none;
+  position: relative;
+}
+@media screen and (min-width: 991px) {
+  .main_lodge_pesca .boton_comentarios::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.5s ease-in-out;
+    /* Agrega una transición de 0.5 segundos con un efecto de entrada y salida */
+  }
+  .main_lodge_pesca .boton_comentarios:hover::after {
+    width: 100%;
+  }
+}
+
+/* --------------------------Pagina "Ubicacion" ------------------------------------ */
+main {
+  background-image: radial-gradient(circle, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #f5f5dc, #e6e8d1, #d8dac5, #cacdba, #abafa1, #8e9288, #737670, #595b58);
+}
+main section h2 { /*Titulo Main */
+  font-family: "Caveat";
+  text-shadow: 1px 0px 0px white, -1px 0px 0px white, 0px 1px 0px white, 0px -1px 0px white;
+}
+main .p_ubicacion {
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  white-space: pre-line;
+}
+main a {
+  color: rgb(63, 7, 7);
+  /*Agregar una animacion a los iconos*/
+}
+main .bordes {
+  border-right: 3px solid black;
+}
+
+.navHeader_404 {
+  background-color: #000000;
+  backdrop-filter: blur(3px) saturate(150%);
+}
+.navHeader_404 .navHeader_Logo {
+  padding: 0;
+  margin: 0;
+  margin-left: 5vw;
+}
+.navHeader_404 .navHeader_Logo .img_Logo {
+  border-radius: 35% 15%;
+  height: 17vh;
+}
+.navHeader_404 .navbar-toggler-color {
+  border-color: aliceblue;
+  border: 5px solid aliceblue;
+}
+.navHeader_404 .navbar-toggler-color:hover {
+  border-color: rgb(132, 52, 190);
+}
+.navHeader_404 li {
+  font-size: 1.4rem;
+  border-right: 2px solid aliceblue;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.navHeader_404 li a {
+  color: aliceblue !important;
+  /*Este !important esta para que no use el color de la clase de bts*/
+  font-weight: 700;
+  position: relative;
+}
+@media screen and (min-width: 991px) {
+  .navHeader_404 li a:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.5s ease-in-out;
+    /* Agrega una transición de 0.5 segundos con un efecto de entrada y salida */
+  }
+  .navHeader_404 li a:hover::after {
+    width: 100%;
+  }
+}
+.navHeader_404 .Link_1 {
+  border-left: 2px solid aliceblue;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+@media screen and (max-width: 991px) {
+  .navHeader_404 .lista_SinBorde li {
+    border: none;
+  }
+}
+.navHeader_404 i {
+  color: white;
+  /* ------------------------Copie el codigo de la animacion de fontawesome y la meti en un hover------------------------------- */
+}
+.navHeader_404 i:hover {
+  -webkit-animation-name: fa-beat;
+  animation-name: fa-beat;
+  -webkit-animation-delay: var(--fa-animation-delay, 0s);
+  animation-delay: var(--fa-animation-delay, 0s);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+  animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+  animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fondo_404 {
+  background-image: url(../assets/img/fondo_404.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  overflow: hidden;
+}
+.fondo_404 h1 {
+  font-family: "Caveat";
+  color: white;
+}
+.fondo_404 h2 {
+  font-family: "Caveat";
+  color: white;
+}
+.fondo_404 p {
+  font-style: "Lato", sans-serif;
+  color: white;
+  text-shadow: 1px 0px 0px rgb(10, 10, 10), -1px 0px 0px rgb(10, 10, 10), 0px 1px 0px rgb(10, 10, 10), 0px -1px 0px rgb(10, 10, 10);
+  white-space: pre-line;
+  font-style: italic;
+}
+.fondo_404 .boton_regresar {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  position: relative;
+}
+@media screen and (min-width: 991px) {
+  .fondo_404 .boton_regresar::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: black;
+    transition: width 0.5s ease-in-out;
+    /* Agrega una transición de 0.5 segundos con un efecto de entrada y salida */
+  }
+  .fondo_404 .boton_regresar:hover::after {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .fondo_404 h1 {
+    text-align: center;
+  }
+  .fondo_404 h2 {
+    text-align: center;
+  }
+  .fondo_404 p {
+    text-align: center;
+  }
+  .fondo_404 a {
+    display: flex;
+    justify-content: center;
+    margin-left: 33%;
+    margin-right: 33%;
+  }
+}
+
+/* ----------------------------- Footer-------------------------------------- */
+Footer {
+  font-family: "Lato", sans-serif;
+  border-radius: 0.25rem;
+  color: aliceblue;
+  background-image: linear-gradient(to right top, #232022, #3a2f31, #513f3b, #635344, #6e6a50, #656c52, #5b6e57, #516f5e, #3f5950, #314440, #24302f, #191d1d);
+}
+Footer .img_Logo {
+  border-radius: 35% 15%;
+  height: 17vh !important;
+}
+Footer p {
+  text-align: center;
+  font-family: "Caveat";
+  white-space: pre-line;
+}
+Footer a {
+  color: aliceblue;
+  text-decoration: none;
+}
+Footer .p_redes {
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+Footer .icono_trip {
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  /* ------------------------Copie el codigo de la animacion de fontawesome y la meti en un hover------------------------------- */
+}
+Footer .icono_trip:hover {
+  -webkit-animation-name: fa-beat;
+  animation-name: fa-beat;
+  -webkit-animation-delay: var(--fa-animation-delay, 0s);
+  animation-delay: var(--fa-animation-delay, 0s);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+  animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+  animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+Footer i {
+  color: white;
+  /* ------------------------Copie el codigo de la animacion de fontawesome y la meti en un hover------------------------------- */
+}
+Footer i:hover {
+  -webkit-animation-name: fa-beat;
+  animation-name: fa-beat;
+  -webkit-animation-delay: var(--fa-animation-delay, 0s);
+  animation-delay: var(--fa-animation-delay, 0s);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+  animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+  animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+/* --------------------------Icono de WhatsApp fijado ------------------------------------ */
+.fixedWsp {
+  position: fixed;
+  bottom: 10px;
+  right: 5px;
+  z-index: 1000;
+  /*para que este por encima de todo*/
+  /* convertir a bloque y establecer altura/ancho iguales */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  /* hacer que tenga bordes redondeados */
+  text-align: center;
+  /* centrar el contenido dentro del círculo */
+  /* ajustar el espacio dentro del círculo */
+  font-size: 3rem;
+}/*# sourceMappingURL=styles.css.map */
