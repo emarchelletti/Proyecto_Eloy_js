@@ -17,17 +17,17 @@ function calcularPrecioFinal(reserva) {
   return precio * reserva.cantidadPersonas * cantidadDias;
 }
 
-// Función para calcular la cantidad de días de una reserva
+// Funcion para calcular la cantidad de dias de una reserva
 function calcularDiasReserva(checkin, checkout) {
   const fechaCheckin = new Date(checkin);
   const fechaCheckout = new Date(checkout);
-  const unDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un día
+  const unDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un dia
 
   const diffDias = Math.round(Math.abs((fechaCheckout - fechaCheckin) / unDia));
   return diffDias;
 }
 
-// Función para limpiar los campos del formulario
+// Funcion para limpiar los campos del formulario
 function limpiarFormulario() {
   document.querySelector('#checkin').value = '';
   document.querySelector('#checkout').value = '';
@@ -49,7 +49,7 @@ function almacenarReservaEnStorage(reserva) {
 
 // Funcion para mostrar la tabla de reservas
 function mostrarTablaReservas() {
-  // Obtener el elemento donde se mostrará la tabla de reservas
+  // Obtener el elemento donde se mostrara la tabla de reservas
   const contenedorTabla = document.querySelector('#contenedorTabla');
 
   // Crear el elemento <div> para la tabla de reservas
@@ -116,7 +116,7 @@ function mostrarTablaReservas() {
     // Limpiar el Storage
     localStorage.removeItem('reservas');
 
-    // Mostrar la tabla de reservas vacía
+    // Mostrar la tabla de reservas vacia
     mostrarTablaReservas();
 
     //Ocultar tabla
@@ -139,7 +139,7 @@ botonConfirmarReserva.addEventListener('click', (e) => {
   const cantidadPersonas = document.querySelector('#cantidadPersonas').value;
   const tipoCabana = document.querySelector('#tipoCabana').value;
 
-  // Verificar que todos los campos estén completos
+  // Verificar que todos los campos esten completos
   if (checkin === '' || checkout === '' || cantidadPersonas === '' || tipoCabana === '') {
     alert('Por favor, complete todos los campos del formulario');
     return;
@@ -163,9 +163,4 @@ botonConfirmarReserva.addEventListener('click', (e) => {
   limpiarFormulario()
 });
 
-// Obtener las reservas almacenadas en el Storage al cargar la página
-window.addEventListener('DOMContentLoaded', () => {
-  const reservasStorage = JSON.parse(localStorage.getItem('reservas')) || [];
-  reservas.push(...reservasStorage);
-});
 
