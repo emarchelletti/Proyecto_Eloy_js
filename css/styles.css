@@ -455,3 +455,8 @@ Footer i:hover {
   /* ajustar el espacio dentro del círculo */
   font-size: 3rem;
 }/*# sourceMappingURL=styles.css.map */
+
+
+#contenedorTabla {
+  display: none;
+}
