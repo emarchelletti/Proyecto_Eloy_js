@@ -457,6 +457,10 @@ Footer i:hover {
 }/*# sourceMappingURL=styles.css.map */
 
 
-#contenedorTabla {
+.ocultarTabla {
   display: none;
+}
+
+.mostrarTabla {
+  display:block;
 }

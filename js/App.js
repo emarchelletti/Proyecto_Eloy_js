@@ -102,8 +102,8 @@ function mostrarTablaReservas() {
   // Agregar el elemento <div> al contenedor
   contenedorTabla.appendChild(divTabla);
 
-  // Mostrar el contenedor de la tabla
-  contenedorTabla.style.display = 'block';
+  // Mostrar tabla
+  contenedorTabla.classList.remove('ocultarTabla');
 
   // Obtener el boton "Eliminar Reservas"
   const eliminarReservasButton = document.querySelector('#eliminarReservas');
@@ -118,6 +118,9 @@ function mostrarTablaReservas() {
 
     // Mostrar la tabla de reservas vacía
     mostrarTablaReservas();
+
+    //Ocultar tabla
+    contenedorTabla.classList.add('ocultarTabla');
   });
 }
 
