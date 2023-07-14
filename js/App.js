@@ -23,8 +23,8 @@ function calcularDiasReserva(checkin, checkout) {
   const fechaCheckout = new Date(checkout);
   const unDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un dia
 
-  const diffDias = Math.round(Math.abs((fechaCheckout - fechaCheckin) / unDia));
-  return diffDias;
+  const difDias = Math.round(Math.abs((fechaCheckout - fechaCheckin) / unDia));
+  return difDias;
 }
 
 // Funcion para limpiar los campos del formulario
@@ -49,12 +49,8 @@ function almacenarReservaEnStorage(reserva) {
 
 // Funcion para mostrar la tabla de reservas
 function mostrarTablaReservas() {
-  // Obtener el elemento donde se mostrara la tabla de reservas
-  const contenedorTabla = document.querySelector('#contenedorTabla');
 
-  // Crear el elemento <div> para la tabla de reservas
-  const divTabla = document.createElement('div');
-  divTabla.id = 'tablaReservas';
+  const contenedorTabla = document.querySelector('#contenedorTabla');
 
   // Crear la tabla
   let tablaHTML = `
@@ -89,50 +85,53 @@ function mostrarTablaReservas() {
   });
 
   tablaHTML += `
-      </tbody>
-    </table>
+    </tbody>
+      </table>
+
+    <div class="d-flex justify-content-center">
+        <button id="confirmarReserva" type="button" class="btn btn-success mt-3">
+        Confirmar Reservas
+        </button>
+    </div>
   `;
 
   // Agregar el contenido de la tabla al elemento <div>
-  divTabla.innerHTML = tablaHTML;
+  contenedorTabla.innerHTML = tablaHTML;
 
-  // Limpiar el contenido previo del contenedor
-  contenedorTabla.innerHTML = '';
+  // Boton para mostrar mensaje de confirmacion
+  const botonConfirmarReserva = document.querySelector('#confirmarReserva');
 
-  // Agregar el elemento <div> al contenedor
-  contenedorTabla.appendChild(divTabla);
+  // Escucho evento de click del boton y ejecuto funcion para mostrar mensaje
+  botonConfirmarReserva.addEventListener('click', () => {
 
-  // Mostrar tabla
+    const contenedorTabla = document.querySelector('#contenedorTabla');
+
+    let mensajeConfirmacion = `<br>
+      <h3 class="text-center mb-4 display-6"> <strong>Su reserva ha sido confirmada!</strong></h3>
+    `;
+
+    contenedorTabla.innerHTML = tablaHTML + mensajeConfirmacion;
+  });
+
+  // Borrar la clase que oculta el div de la tabla
   contenedorTabla.classList.remove('ocultarTabla');
 
-  // Obtener el boton "Eliminar Reservas"
-  const eliminarReservasButton = document.querySelector('#eliminarReservas');
 
-  // Agregar evento click al boton "Eliminar Reservas"
-  eliminarReservasButton.addEventListener('click', () => {
-    // Limpiar el array de reservas
-    reservas.length = 0;
-
-    // Limpiar el Storage
-    localStorage.removeItem('reservas');
-
-    // Mostrar la tabla de reservas vacia
-    mostrarTablaReservas();
-
-    //Ocultar tabla
-    contenedorTabla.classList.add('ocultarTabla');
-  });
 }
 
-//////////////////////////////////////////////////////////////////BOTONES//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////BOTONES //////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 // Obtener el boton "Ver Reservas"
-const botonConfirmarReserva = document.getElementById('confirmarReserva');
+const botonAgregarReserva = document.querySelector('#agregarReserva');
 
-// Agregar evento click al boton "Ver Reservas" y ejecutar las funciones
-botonConfirmarReserva.addEventListener('click', (e) => {
-  //Prevengo que no haga su accion x default
-  e.preventDefault();
+// Escucho evento de click del boton y ejecuto funcion para mostrar tabla
+botonAgregarReserva.addEventListener('click', (e) => {
+
   // Levantar los valores del formulario
   const checkin = document.querySelector('#checkin').value;
   const checkout = document.querySelector('#checkout').value;
@@ -141,26 +140,46 @@ botonConfirmarReserva.addEventListener('click', (e) => {
 
   // Verificar que todos los campos esten completos
   if (checkin === '' || checkout === '' || cantidadPersonas === '' || tipoCabana === '') {
-    alert('Por favor, complete todos los campos del formulario');
-    return;
+
+  } else {
+
+    //Prevengo que no haga su accion x default
+    e.preventDefault();
+
+    // Crear un objeto Reserva
+    const reserva = {
+      checkin: checkin,
+      checkout: checkout,
+      cantidadPersonas: cantidadPersonas,
+      tipoCabana: tipoCabana,
+    };
+
+    // Agregar la reserva al array de reservas
+    reservas.push(reserva);
+
+    mostrarTablaReservas();
+
+    almacenarReservaEnStorage(reserva);
+
+    limpiarFormulario()
   }
-
-  // Crear un objeto Reserva
-  const reserva = {
-    checkin: checkin,
-    checkout: checkout,
-    cantidadPersonas: cantidadPersonas,
-    tipoCabana: tipoCabana,
-  };
-
-  // Agregar la reserva al array de reservas
-  reservas.push(reserva);
-
-  mostrarTablaReservas();
-
-  almacenarReservaEnStorage(reserva);
-
-  limpiarFormulario()
 });
 
 
+// Obtener el boton "Eliminar Reservas"
+const botonEliminarReservas = document.querySelector('#eliminarReservas');
+
+// Agregar evento click al boton "Eliminar Reservas"
+botonEliminarReservas.addEventListener('click', () => {
+  // Limpiar el array de reservas
+  reservas.length = 0;
+
+  // Limpiar el Storage
+  localStorage.removeItem('reservas');
+
+  // Mostrar la tabla de reservas vacia
+  mostrarTablaReservas();
+
+  //Ocultar tabla
+  contenedorTabla.classList.add('ocultarTabla');
+});
