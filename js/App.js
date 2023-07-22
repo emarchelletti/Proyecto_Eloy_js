@@ -183,3 +183,5 @@ botonEliminarReservas.addEventListener('click', () => {
   //Ocultar tabla
   contenedorTabla.classList.add('ocultarTabla');
 });
+
+console.log(JSON.parse(localStorage.getItem('reservas')));
