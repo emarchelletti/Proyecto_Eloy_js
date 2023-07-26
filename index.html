@@ -2,7 +2,6 @@
 
 <html lang="es">
 
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +17,6 @@
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://kit.fontawesome.com/62ed3e31f1.js" crossorigin="anonymous"></script>
 </head>
-
 
 <body>
 
@@ -92,58 +90,58 @@
                 <div class="col-md-6 col-lg-6">
 
                     <section class="shadow bg-dark rounded p-3">
+                        <h2 class="text-center text-white mb-4 display-3"><strong>Hacé tu reserva</strong></h2>
 
-                        <h2 class="text-center text-white mb-4 display-3"> <strong>Hacé tu reserva</strong></h2>
-
-                        <form>
-
-                            <div class="form-group">
-                                <label for="checkin" class="text-white">Check-in:</label>
-                                <input type="date" class="form-control" id="checkin" name="checkin" required>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="checkin" class="text-white">Check-in:</label>
+                                    <input type="date" class="form-control" id="checkin" name="checkin" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="checkout" class="text-white">Check-out:</label>
+                                    <input type="date" class="form-control" id="checkout" name="checkout" required>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="checkout" class="text-white">Check-out:</label>
-                                <input type="date" class="form-control" id="checkout" name="checkout" required>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cantidadPersonas" class="text-white">Cantidad de personas (max
+                                        8):</label>
+                                    <input type="number" class="form-control" id="cantidadPersonas"
+                                        name="cantidadPersonas" min="1" max="8" required>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="cantidadPersonas" class="text-white">Cantidad de personas (max 8):</label>
-                                <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas"
-                                    min="1" max="8" required>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="tipoCabana" class="text-white">Tipo de cabaña:</label>
+                                    <select class="form-control" id="tipoCabana" name="tipoCabana" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="Estandar">Cabaña Estándar ($100 por dia)</option>
+                                        <option value="Deluxe">Cabaña Deluxe ($500 por dia)</option>
+                                    </select>
+                                </div>
                             </div>
 
-
-                            <div class="form-group">
-                                <label for="tipoCabana" class="text-white">Tipo de cabaña:</label>
-                                <select class="form-control" id="tipoCabana" name="tipoCabana" required>
-                                    <option value="">Seleccionar</option>
-                                    <option value="Estandar">Cabaña Estándar ($100 por dia)</option>
-                                    <option value="Deluxe">Cabaña Deluxe ($500 por dia)</option>
-                                </select>
+                            <div class="col-md-6">
+                                <button id="verDisponibilidad" type="button" class="btn btn-primary mt-3 btn-block">Ver
+                                    Disponibilidad</button>
                             </div>
-
-
-                            <div class="d-flex justify-content-center">
-                                <button id="agregarReserva" type="submit" class="btn btn-primary mt-3">Agregar
-                                    Reservas</button>
-
-
+                            <div class="col-md-6">
+                                <button id="buscarReserva" type="button" class="btn btn-secondary mt-3 btn-block">Buscar
+                                    Reserva</button>
                             </div>
-
-                            <div class="d-flex justify-content-center">
-                                <button id="eliminarReservas" type="button" class="btn btn-danger mt-3">Eliminar
-                                    Reservas</button>
-                            </div>
-                            
                         </form>
-
                     </section>
+
 
                 </div>
 
                 <div id="contenedorTabla" class="ocultarTabla col-md-6 col-lg-6">
-                
+
                 </div>
 
             </div>
@@ -221,10 +219,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
-    <script src="./js/Reservas.js"></script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./model/Reservas.js"></script>
     <script src="./js/App.js"></script>
 </body>
-
 
 </html>

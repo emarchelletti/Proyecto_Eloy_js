@@ -4,15 +4,11 @@ const reservas = [];
 
 //////////////////////////////////////////////////////////////////DECLARO FUNCIONES///////////////////////////////////////////////////////
 
+
 // Funcion para calcular el precio final de una reserva
 function calcularPrecioFinal(reserva) {
-  let precio = 0;
-
-  if (reserva.tipoCabana === 'Estandar') {
-    precio = 100;
-  } else if (reserva.tipoCabana === 'Deluxe') {
-    precio = 500;
-  }
+  let precio;
+  reserva.tipoCabana === 'Estandar' ? precio = 100 : precio = 500; // (si esto no funciona vovler a copiar la funcion del app 3ra Entrega)
   const cantidadDias = calcularDiasReserva(reserva.checkin, reserva.checkout);
   return precio * reserva.cantidadPersonas * cantidadDias;
 }
@@ -22,10 +18,9 @@ function calcularDiasReserva(checkin, checkout) {
   const fechaCheckin = new Date(checkin);
   const fechaCheckout = new Date(checkout);
   const unDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un dia
-
   const difDias = Math.round(Math.abs((fechaCheckout - fechaCheckin) / unDia));
   return difDias;
-}
+  }
 
 // Funcion para limpiar los campos del formulario
 function limpiarFormulario() {
@@ -37,14 +32,9 @@ function limpiarFormulario() {
 
 // Funcion para almacenar los datos de la reserva en el Storage
 function almacenarReservaEnStorage(reserva) {
-  // Obtener las reservas almacenadas en el Storage (si existen)
-  const reservasStorage = JSON.parse(localStorage.getItem('reservas')) || [];
-
-  // Agregar la nueva reserva al array de reservas almacenadas
-  reservasStorage.push(reserva);
-
-  // Almacenar el array de reservas actualizado en el Storage
-  localStorage.setItem('reservas', JSON.stringify(reservasStorage));
+  const reservasStorage = JSON.parse(localStorage.getItem('reservas')) || []; // Obtener las reservas almacenadas en el Storage (si existen)
+  reservasStorage.push(reserva);  // Agregar la nueva reserva al array de reservas almacenadas
+  localStorage.setItem('reservas', JSON.stringify(reservasStorage));   // Almacenar el array de reservas actualizado en el Storage
 }
 
 // Funcion para mostrar la tabla de reservas
@@ -121,10 +111,17 @@ function mostrarTablaReservas() {
 
 //////////////////////////////////////////////////////////////////BOTONES //////////////////////////////////////////////////////////////////////
 
+const botonPrueba = document.querySelector('#verDisponibilidad');
 
-
-
-
+// botonPrueba.onclick = () => {
+//   //alert('Hola eLO');
+//   Swal.fire({
+//   title: 'Error!',
+//   text: 'Do you want to continue',
+//   icon: 'error',
+//   confirmButtonText: 'Cool'
+//   })
+// }
 
 // Obtener el boton "Ver Reservas"
 const botonAgregarReserva = document.querySelector('#agregarReserva');
@@ -171,17 +168,11 @@ const botonEliminarReservas = document.querySelector('#eliminarReservas');
 
 // Agregar evento click al boton "Eliminar Reservas"
 botonEliminarReservas.addEventListener('click', () => {
-  // Limpiar el array de reservas
-  reservas.length = 0;
-
-  // Limpiar el Storage
-  localStorage.removeItem('reservas');
-
-  // Mostrar la tabla de reservas vacia
-  mostrarTablaReservas();
-
-  //Ocultar tabla
-  contenedorTabla.classList.add('ocultarTabla');
+  reservas.length = 0;  // Limpiar el array de reservas
+  localStorage.removeItem('reservas');  // Limpiar el Storage
+  mostrarTablaReservas();   // Mostrar la tabla de reservas vacia
+  contenedorTabla.classList.add('ocultarTabla');   //Ocultar tabla
 });
 
 console.log(JSON.parse(localStorage.getItem('reservas')));
+
