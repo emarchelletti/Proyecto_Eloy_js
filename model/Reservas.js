@@ -3,4 +3,5 @@ class Reserva {
   checkout;
   cantidadPersonas;
   tipoCabana;
+  email;
 }

@@ -1,6 +1,15 @@
 // Array para almacenar las reservas
 const reservas = [];
 
+class Reserva {
+  checkin;
+  checkout;
+  cantidadPersonas;
+  tipoCabana;
+  email;
+}
+
+const { DateTime } = window.luxon;
 
 //////////////////////////////////////////////////////////////////DECLARO FUNCIONES///////////////////////////////////////////////////////
 
@@ -20,7 +29,7 @@ function calcularDiasReserva(checkin, checkout) {
   const unDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un dia
   const difDias = Math.round(Math.abs((fechaCheckout - fechaCheckin) / unDia));
   return difDias;
-  }
+}
 
 // Funcion para limpiar los campos del formulario
 function limpiarFormulario() {
@@ -111,7 +120,7 @@ function mostrarTablaReservas() {
 
 //////////////////////////////////////////////////////////////////BOTONES //////////////////////////////////////////////////////////////////////
 
-const botonPrueba = document.querySelector('#verDisponibilidad');
+//const botonPrueba = document.querySelector('#verDisponibilidad');
 
 // botonPrueba.onclick = () => {
 //   //alert('Hola eLO');
@@ -123,56 +132,82 @@ const botonPrueba = document.querySelector('#verDisponibilidad');
 //   })
 // }
 
-// Obtener el boton "Ver Reservas"
-const botonAgregarReserva = document.querySelector('#agregarReserva');
+// Boton "Ver Disponibilidad"
+const botonVerDisp = document.querySelector('#verDisponibilidad');
+botonVerDisp.addEventListener('click', (e) => {
 
-// Escucho evento de click del boton y ejecuto funcion para mostrar tabla
-botonAgregarReserva.addEventListener('click', (e) => {
-
-  // Levantar los valores del formulario
+  e.preventDefault();
+  // Almacenar los valores del formulario
   const checkin = document.querySelector('#checkin').value;
   const checkout = document.querySelector('#checkout').value;
   const cantidadPersonas = document.querySelector('#cantidadPersonas').value;
   const tipoCabana = document.querySelector('#tipoCabana').value;
+  const email = document.querySelector('#email').value;
 
-  // Verificar que todos los campos esten completos
-  if (checkin === '' || checkout === '' || cantidadPersonas === '' || tipoCabana === '') {
-
-  } else {
-
-    //Prevengo que no haga su accion x default
-    e.preventDefault();
-
-    // Crear un objeto Reserva
-    const reserva = {
-      checkin: checkin,
-      checkout: checkout,
-      cantidadPersonas: cantidadPersonas,
-      tipoCabana: tipoCabana,
-    };
-
-    // Agregar la reserva al array de reservas
-    reservas.push(reserva);
-
-    mostrarTablaReservas();
-
-    almacenarReservaEnStorage(reserva);
-
-    limpiarFormulario()
+  // Verificar que todos los campos estén completos
+  if (checkin === '' || checkout === '' || cantidadPersonas === '' || tipoCabana === '' || email === '') {
+    alert('Por favor, complete todos los campos antes de continuar.');
+    return;
   }
+
+  // Convertir las fechas a objetos DateTime de Luxon
+  const fechaCheckin = DateTime.fromISO(checkin);
+  const fechaCheckout = DateTime.fromISO(checkout);
+
+  // Verificar que el checkin sea antes del checkout
+  if (!fechaCheckin.isValid || !fechaCheckout.isValid || fechaCheckin >= fechaCheckout) {
+    alert('La fecha de check-in debe ser anterior a la fecha de check-out.');
+    return;
+  }
+
+  // Verificar disponibilidad en el rango de fechas y tipo de cabaña
+  const reservaExiste = reservas.some((reserva) => {
+    const reservaCheckin = DateTime.fromISO(reserva.checkin);
+    const reservaCheckout = DateTime.fromISO(reserva.checkout);
+    return (
+      reserva.tipoCabana === tipoCabana &&
+      (
+        (fechaCheckin >= reservaCheckin && fechaCheckin < reservaCheckout) ||
+        (fechaCheckout > reservaCheckin && fechaCheckout <= reservaCheckout) ||
+        (fechaCheckin <= reservaCheckin && fechaCheckout >= reservaCheckout)
+      )
+    );
+  });
+
+  if (reservaExiste) {
+    alert('Lo sentimos, no hay disponibilidad en el rango de fechas y tipo de cabaña seleccionado.');
+    return;
+  }
+  // Crear un objeto Reserva
+  const reserva = {
+    checkin: checkin,
+    checkout: checkout,
+    cantidadPersonas: cantidadPersonas,
+    tipoCabana: tipoCabana,
+    email: email,
+  };
+
+  // Agregar la reserva al array de reservas
+  reservas.push(reserva);
+
+  mostrarTablaReservas();
+
+  almacenarReservaEnStorage(reserva);
+
+  limpiarFormulario()
 });
 
 
-// Obtener el boton "Eliminar Reservas"
-const botonEliminarReservas = document.querySelector('#eliminarReservas');
+// // Obtener el boton "Eliminar Reservas"
+// const botonEliminarReservas = document.querySelector('#eliminarReservas');
 
-// Agregar evento click al boton "Eliminar Reservas"
-botonEliminarReservas.addEventListener('click', () => {
-  reservas.length = 0;  // Limpiar el array de reservas
-  localStorage.removeItem('reservas');  // Limpiar el Storage
-  mostrarTablaReservas();   // Mostrar la tabla de reservas vacia
-  contenedorTabla.classList.add('ocultarTabla');   //Ocultar tabla
-});
+// // Agregar evento click al boton "Eliminar Reservas"
+// botonEliminarReservas.addEventListener('click', () => {
+//   reservas.length = 0;  // Limpiar el array de reservas
+//   localStorage.removeItem('reservas');  // Limpiar el Storage
+//   mostrarTablaReservas();   // Mostrar la tabla de reservas vacia
+//   contenedorTabla.classList.add('ocultarTabla');   //Ocultar tabla
+// });
 
 console.log(JSON.parse(localStorage.getItem('reservas')));
 
