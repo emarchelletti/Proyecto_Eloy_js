@@ -1,5 +1,9 @@
 const reservas = [];
 const { DateTime } = window.luxon;
+const reservasStorage = JSON.parse(localStorage.getItem('reservas'));
+if (reservasStorage && Array.isArray(reservasStorage)) {
+  reservas.push(...reservasStorage);
+}
 
 //////////////////////////////////////////////////////////////////DECLARO FUNCIONES///////////////////////////////////////////////////////
 
@@ -7,7 +11,7 @@ const { DateTime } = window.luxon;
 // Funcion para calcular el precio final de una reserva
 function calcularPrecioFinal(reserva) {
   let precio;
-  reserva.tipoCabana === 'Estandar' ? precio = 100 : precio = 500; // (si esto no funciona vovler a copiar la funcion del app 3ra Entrega)
+  reserva.tipoCabana === 'Estandar' ? precio = 100 : precio = 500;
   const cantidadDias = calcularDiasReserva(reserva.checkin, reserva.checkout);
   return precio * reserva.cantidadPersonas * cantidadDias;
 }
@@ -44,7 +48,7 @@ function mostrarTablaReservas() {
 
   // Crear la tabla
   let tablaHTML = `
-    <h3 class="rounded h3 mb-4 bg-warning text-center font-family: 'Caveat'">
+    <h3 class="rounded h3 mt-3 mb-3 bg-success text-center font-family: 'Caveat'">
     La cabaña esta disponible en las fechas seleccionadas!
     </h3>
     <p class="text-decoration-underline h6 fst-italic">Detalles de su reserva</p>
@@ -61,11 +65,11 @@ function mostrarTablaReservas() {
       <tbody>
   `;
 
-  // Generar las filas de la tabla
-  reservas.forEach((reserva) => {
-    const { checkin, checkout, cantidadPersonas, tipoCabana, email } = reserva;
+  const ultimaReserva = reservas.pop(); // Elimina y obtiene la última reserva del array
+  if (ultimaReserva) {
+    const { checkin, checkout, cantidadPersonas, tipoCabana } = ultimaReserva;
 
-    const precioFinal = calcularPrecioFinal(reserva);
+    const precioFinal = calcularPrecioFinal(ultimaReserva);
 
     tablaHTML += `
       <tr>
@@ -77,16 +81,14 @@ function mostrarTablaReservas() {
       </tr>
     `;
     //Guardo la reserva para usar valores mas adelante
-    if (!reservaSeleccionada) {
-      reservaSeleccionada = reserva;
-    }
-  });
+    reservaSeleccionada = ultimaReserva;
+  }
 
   tablaHTML += `
     </tbody>
       </table>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-around ">
         <button id="confirmarReserva" type="button" class="btn btn-success mt-3">
         Confirmar Reserva
         </button>
@@ -112,26 +114,30 @@ function mostrarTablaReservas() {
       confirmButtonText: 'Sí',
       cancelButtonText: 'No'
     }).then((result) => {
-      if (result.isConfirmed) {
-
-        // Si el usuario elige "Sí", se ejecuta esta acción
+      almacenarReservaEnStorage(ultimaReserva);
+      if (result.isConfirmed) {         // Si el usuario elige "Sí", se ejecuta esta acción
         const datosCorreo = {
           to_email: reservaSeleccionada.email,
           from_name: "Epecuen Lodge",
           message: `Gracias por confiar en nosotros, lo esperamos el ${reservaSeleccionada.checkin} para vivir una experiencia inolvidable.`,
         };
-
         emailjs.send("service_u271lop", "template_173lb8a", datosCorreo, "F1LYXZVoqdX5z_GKp")
           .then((response) => {
             console.log("Correo electrónico enviado con éxito:", response);
             Swal.fire('Comprobante enviado con exito', '', 'success');
+            window.location.reload();
           }, (error) => {
             console.error("Error al enviar el correo electrónico:", error);
           });
-      } else {
-        // Si el usuario elige "No", se ejecuta esta acción
-        Swal.fire('Comprobante no enviado', '', 'info');
-        contenedorTabla.classList.add('ocultarTabla');   //Ocultar tabla
+      } else { // Si el usuario elige "No", se ejecuta esta acción
+        Swal.fire({
+          title: 'Comprobante no enviado',
+          icon: 'info',
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000); // Cambia el valor 2000 a la cantidad de milisegundos que deseas (por ejemplo, 3000 para 3 segundos)
       }
 
     });
@@ -140,9 +146,7 @@ function mostrarTablaReservas() {
   //Boton descartar Reserva
   const botonDescartarReserva = document.querySelector('#descartarReserva');
   botonDescartarReserva.addEventListener('click', () => {
-    reservas.length = 0;  // Limpiar el array de reservas
-    mostrarTablaReservas();   // Mostrar la tabla de reservas vacia
-    contenedorTabla.classList.add('ocultarTabla');   //Ocultar tabla
+    window.location.reload();
   });
 
   // Borrar la clase que oculta el div de la tabla
@@ -151,7 +155,6 @@ function mostrarTablaReservas() {
 }
 
 //////////////////////////////////////////////////////////////////BOTONES //////////////////////////////////////////////////////////////////////
-
 
 // Boton "Ver Disponibilidad"
 const botonVerDisp = document.querySelector('#verDisponibilidad');
@@ -217,35 +220,41 @@ botonVerDisp.addEventListener('click', (e) => {
   if (reservaExiste) {
     Swal.fire({
       icon: 'error',
-      title: 'Error',
-      text: 'Lo sentimos, no hay disponibilidad en el rango de fechas y tipo de cabaña seleccionado.',
+      title: 'Sin disponibilidad',
+      text: `La cabaña ${tipoCabana} no esta disponible en el rango de fechas ingresado `,
+      confirmButtonText: 'Ingresar otra fecha'
     });
     return;
   }
-
-  console.log(reservaExiste);
 
   // Agregar la reserva al array de reservas
   reservas.push(nuevaReserva);
 
   mostrarTablaReservas();
 
-  almacenarReservaEnStorage(nuevaReserva);
 
   limpiarFormulario()
 
 });
 
-
-
-
-// Boton "Eliminar Reservas"
+// Boton "Eliminar Reservas" para vaciar el local Storage
 const botonEliminarReservas = document.querySelector('#eliminarReservas');
 botonEliminarReservas.addEventListener('click', () => {
-  reservas.length = 0;
-  localStorage.removeItem('reservas');
-  mostrarTablaReservas();
-  contenedorTabla.classList.add('ocultarTabla');
+  Swal.fire({
+    title: 'Eliminar Reservas',
+    text: '¿Estás seguro de que deseas eliminar todas las reservas?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      reservas.length = 0;
+      localStorage.removeItem('reservas');
+      Swal.fire('Reservas eliminadas', 'Todas las reservas han sido eliminadas', 'success');
+      window.location.reload();
+    }
+  });
 });
 
 
